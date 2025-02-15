@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-//stdout
+// stdout
 func (fig figure) Print() {
 	for _, printRow := range fig.Slicify() {
 		if fig.color != "" {
@@ -19,7 +19,7 @@ func (fig figure) Print() {
 
 // returns a colored string
 func (fig figure) ColorString() string {
-	s := ""
+	var s string
 	for _, printRow := range fig.Slicify() {
 		if fig.color != "" {
 			printRow = colors[fig.color] + printRow + colors["reset"]
@@ -30,7 +30,7 @@ func (fig figure) ColorString() string {
 }
 
 func (fig figure) String() string {
-	s := ""
+	var s string
 	for _, printRow := range fig.Slicify() {
 		s += fmt.Sprintf("%s\n", printRow)
 	}
@@ -47,7 +47,7 @@ func (fig figure) Scroll(duration, stillness int, direction string) {
 		if strings.HasPrefix(strings.ToLower(direction), "r") {
 			shiftedPhrase = string(append(chars[len(chars)-1:], chars[0:len(chars)-1]...))
 		} else {
-			shiftedPhrase = string(append(chars[1:len(chars)], chars[0]))
+			shiftedPhrase = string(append(chars[1:], chars[0]))
 		}
 		fig.phrase = shiftedPhrase
 		fig.Print()
@@ -74,12 +74,15 @@ func (fig figure) Dance(duration, freeze int) {
 	endTime := time.Now().Add(time.Duration(duration) * time.Millisecond)
 	font := fig.font //TODO: change to deep copy
 	font.evenLetters()
-	figures := []figure{figure{font: font}, figure{font: font}}
+	figures := []figure{
+		{font: font},
+		{font: font},
+	}
 	clearScreen()
 	for i, c := range fig.phrase {
 		appenders := []string{" ", " "}
 		appenders[i%2] = string(c)
-		for f, _ := range figures {
+		for f := range figures {
 			figures[f].phrase = figures[f].phrase + appenders[f]
 		}
 	}
@@ -91,14 +94,14 @@ func (fig figure) Dance(duration, freeze int) {
 	}
 }
 
-//writers
+// writers
 func Write(w io.Writer, fig figure) {
 	for _, printRow := range fig.Slicify() {
 		fmt.Fprintf(w, "%v\n", printRow)
 	}
 }
 
-//helpers
+// helpers
 func clearScreen() {
 	fmt.Print("\033[H\033[2J")
 }

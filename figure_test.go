@@ -2,9 +2,10 @@ package figure
 
 import (
 	"fmt"
+	"testing"
 )
 
-func ExampleAlphabet() {
+func TestAlphabet(t *testing.T) {
 	myFigure := NewFigure("Hello world", "alphabet", true)
 	fmt.Println(myFigure)
 	// Output:
@@ -15,7 +16,7 @@ func ExampleAlphabet() {
 	// H  H ee  l l ooo    w w  ooo r   l  ddd
 }
 
-func ExampleDefault() {
+func TestDefault(t *testing.T) {
 	myFigure := NewFigure("Hello world", "", true)
 	fmt.Println(myFigure)
 	// Output:

@@ -47,7 +47,7 @@ func NewFigureWithFont(phrase string, reader io.Reader, strict bool) figure {
 
 func (figure figure) Slicify() (rows []string) {
 	for r := 0; r < figure.font.height; r++ {
-		printRow := ""
+		var printRow string
 		for _, char := range figure.phrase {
 			if char < first_ascii || char > last_ascii {
 				if figure.strict {

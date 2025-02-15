@@ -72,7 +72,7 @@ func (font *font) setAttributes(scanner *bufio.Scanner) {
 }
 
 func (font *font) setLetters(scanner *bufio.Scanner) {
-	font.letters = append(font.letters, make([]string, font.height, font.height)) //TODO: set spaces from flf
+	font.letters = append(font.letters, make([]string, font.height)) //TODO: set spaces from flf
 	for i := range font.letters[0] {
 		font.letters[0][i] = "  "
 	} //TODO: set spaces from flf
@@ -87,7 +87,7 @@ func (font *font) setLetters(scanner *bufio.Scanner) {
 			}
 		}
 		if letterIndex > 0 {
-			appendText := ""
+			var appendText string
 			if len(text) > 1 {
 				appendText = text[:len(text)-cutLength]
 			}

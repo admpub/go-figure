@@ -23,7 +23,7 @@ import (
 	_ "github.com/romance-dev/ascii-art/fonts/bubble"
 	_ "github.com/romance-dev/ascii-art/fonts/bulbhead"
 	_ "github.com/romance-dev/ascii-art/fonts/calgphy2"
-	_ "github.com/romance-dev/ascii-art/fonts/caligraphy"
+	_ "github.com/romance-dev/ascii-art/fonts/calligraphy"
 	_ "github.com/romance-dev/ascii-art/fonts/catwalk"
 	_ "github.com/romance-dev/ascii-art/fonts/chunky"
 	_ "github.com/romance-dev/ascii-art/fonts/coinstak"

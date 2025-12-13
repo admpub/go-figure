@@ -123,7 +123,7 @@ func main() {
 * bubble
 * bulbhead
 * calgphy2
-* caligraphy
+* calligraphy
 * catwalk
 * chunky
 * coinstak

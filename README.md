@@ -1,4 +1,11 @@
-[![Build Status](https://travis-ci.com/common-nighthawk/go-figure.svg?branch=master)](https://travis-ci.com/common-nighthawk/go-figure)
+<p align="right">
+⭐ &nbsp;&nbsp;<strong>the project to show your appreciation.</strong> :arrow_upper_right:
+</p>
+
+<p align="right">
+<a href="http://godoc.org/github.com/romance-dev/ascii-art"><img src="http://godoc.org/github.com/romance-dev/ascii-art?status.svg" /></a>
+<a href="https://goreportcard.com/report/github.com/romance-dev/ascii-art"><img src="https://goreportcard.com/badge/github.com/romance-dev/ascii-art" /></a>
+</p>
 
 # ASCII ART for Go
 

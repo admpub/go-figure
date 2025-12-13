@@ -10,7 +10,7 @@
 # ASCII ART for Go
 
 ## Description
-Go Figure prints beautiful ASCII art from text.
+Prints beautiful ASCII art from text.
 It supports [FIGlet](http://www.figlet.org/) files,
 and most of its features.
 

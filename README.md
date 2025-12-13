@@ -14,6 +14,7 @@ Prints beautiful ASCII art from text.
 It supports [FIGlet](http://www.figlet.org/) files, and most of its features.
 
 This package is a fork of [go-figure](https://github.com/common-nighthawk/go-figure).
+
 **UPDATES:** `go.mod` support was added, the API was cleaned up, and font-loading was done as plugins to save memory.
 
 ## Installation

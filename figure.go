@@ -21,7 +21,10 @@ type Figure struct {
 
 // NewFigure converts a phrase to a Figure that can then
 // be printed to an io.Writer (such as io.Stdout).
-// font must be loaded beforehand.
+//
+// font must be loaded beforehand. The default is "standard"
+// (provided it is already loaded).
+//
 // If strict mode is enabled, then any unprintable ASCII
 // characters will produce a panic. Otherwise, it will be
 // replaced by a '?'.
@@ -35,8 +38,12 @@ func NewFigure(phrase, font string, strict bool) Figure {
 
 // NewColorFigure converts a phrase to a Figure that can then
 // be printed to an io.Writer (such as io.Stdout).
-// font must be loaded beforehand.
+//
+// font must be loaded beforehand. The default is "standard"
+// (provided it is already loaded).
+//
 // color can be Red, Green, Yellow, Blue, Purple, Cyan, Gray or White.
+//
 // If strict mode is enabled, then any unprintable ASCII
 // characters will produce a panic. Otherwise, it will be
 // replaced by a '?'.

@@ -27,7 +27,7 @@ template found in the `/fonts` sub-directory.
 
 The plugin must call: `RegisterFont("<font name identifier>", font)` inside an `func init()`.
 
-To load the font, you can **blank import** it the plugin package.
+To load the font, you can **blank import** the plugin package.
 
 ## Basic Example
 ```go

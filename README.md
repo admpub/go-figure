@@ -20,6 +20,15 @@ This package is a fork of [go-figure](https://github.com/common-nighthawk/go-fig
 ## Installation
 `go get github.com/romance-dev/ascii-art`
 
+## Adding new fonts
+
+If you have a `*.flf` file for a font, you can create a plugin by following the simple
+template found in the `/fonts` sub-directory.
+
+The plugin must call: `RegisterFont("<font name identifier>", font)` inside an `func init()`.
+
+To load the font, you can **blank import** it the plugin package.
+
 ## Basic Example
 ```go
 package main

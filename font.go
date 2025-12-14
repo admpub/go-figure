@@ -48,7 +48,7 @@ func newFont(name string) (font font) {
 	fontBytes, exists := fonts[font.name]
 	driversMu.RUnlock()
 	if !exists {
-		panic(fmt.Errorf("Font %s not found", name))
+		panic(fmt.Errorf("Font %s not found", font.name))
 	}
 	fontBytesReader := bytes.NewReader(fontBytes)
 	scanner := bufio.NewScanner(fontBytesReader)
@@ -59,7 +59,7 @@ func newFont(name string) (font font) {
 
 func (font *font) setName(name string) {
 	font.name = name
-	if len(name) < 1 {
+	if name == "" {
 		font.name = defaultFont
 	}
 }

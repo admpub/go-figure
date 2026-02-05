@@ -5,11 +5,15 @@ import (
 	"strings"
 )
 
-const signature = "flf2"
-const reverseFlag = "1"
+const (
+	signature   = "flf2"
+	reverseFlag = "1"
+)
 
-var charDelimiters = [3]string{"@", "#", "$"}
-var hardblanksBlacklist = [2]byte{'a', '2'}
+var (
+	charDelimiters      = [3]string{"@", "#", "$"}
+	hardblanksBlacklist = [2]byte{'a', '2'}
+)
 
 func getHeight(metadata string) int {
 	datum := strings.Fields(metadata)[1]

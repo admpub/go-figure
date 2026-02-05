@@ -3,12 +3,23 @@ package figure
 import (
 	"bufio"
 	"bytes"
-	"io"
-	"path"
+	"fmt"
 	"strings"
 )
 
 const defaultFont = "standard"
+
+const (
+	Black  = "black"
+	Red    = "red"
+	Green  = "green"
+	Yellow = "yellow"
+	Blue   = "blue"
+	Purple = "purple"
+	Cyan   = "cyan"
+	Gray   = "gray"
+	White  = "white"
+)
 
 var colors = map[string]string{
 	"reset":  "\033[0m",
@@ -33,9 +44,11 @@ type font struct {
 
 func newFont(name string) (font font) {
 	font.setName(name)
-	fontBytes, err := Asset(path.Join("fonts", font.name+".flf"))
-	if err != nil {
-		panic(err)
+	driversMu.RLock()
+	fontBytes, exists := fonts[font.name]
+	driversMu.RUnlock()
+	if !exists {
+		panic(fmt.Errorf("Font %s not found", font.name))
 	}
 	fontBytesReader := bytes.NewReader(fontBytes)
 	scanner := bufio.NewScanner(fontBytesReader)
@@ -44,16 +57,9 @@ func newFont(name string) (font font) {
 	return font
 }
 
-func newFontFromReader(reader io.Reader) (font font) {
-	scanner := bufio.NewScanner(reader)
-	font.setAttributes(scanner)
-	font.setLetters(scanner)
-	return font
-}
-
 func (font *font) setName(name string) {
 	font.name = name
-	if len(name) < 1 {
+	if name == "" {
 		font.name = defaultFont
 	}
 }
@@ -72,10 +78,10 @@ func (font *font) setAttributes(scanner *bufio.Scanner) {
 }
 
 func (font *font) setLetters(scanner *bufio.Scanner) {
-	font.letters = append(font.letters, make([]string, font.height)) //TODO: set spaces from flf
+	font.letters = append(font.letters, make([]string, font.height, font.height)) // TODO: set spaces from flf
 	for i := range font.letters[0] {
 		font.letters[0][i] = "  "
-	} //TODO: set spaces from flf
+	} // TODO: set spaces from flf
 	letterIndex := 0
 	for scanner.Scan() {
 		text, cutLength, letterIndexInc := scanner.Text(), 1, 0

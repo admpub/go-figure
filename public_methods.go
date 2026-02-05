@@ -7,8 +7,8 @@ import (
 	"time"
 )
 
-// stdout
-func (fig figure) Print() {
+// Print outputs the figure to io.Stdout.
+func (fig Figure) Print() {
 	for _, printRow := range fig.Slicify() {
 		if fig.color != "" {
 			printRow = colors[fig.color] + printRow + colors["reset"]
@@ -17,9 +17,9 @@ func (fig figure) Print() {
 	}
 }
 
-// returns a colored string
-func (fig figure) ColorString() string {
-	var s string
+// Returns the figure as a colored string.
+func (fig Figure) ColorString() string {
+	s := ""
 	for _, printRow := range fig.Slicify() {
 		if fig.color != "" {
 			printRow = colors[fig.color] + printRow + colors["reset"]
@@ -29,16 +29,24 @@ func (fig figure) ColorString() string {
 	return s
 }
 
-func (fig figure) String() string {
-	var s string
+// Returns the figure as a string.
+func (fig Figure) String() string {
+	s := ""
 	for _, printRow := range fig.Slicify() {
 		s += fmt.Sprintf("%s\n", printRow)
 	}
 	return s
 }
 
-func (fig figure) Scroll(duration, stillness int, direction string) {
-	endTime := time.Now().Add(time.Duration(duration) * time.Millisecond)
+// Scrolls writes the figure and then animates it with scrolling.
+// duration: total time the banner will display.
+//
+// stillness: duration of time the text will not move; the lower the stillness the faster
+// the scroll speed.
+//
+// direction: can be either "right" or "left".
+func (fig Figure) Scroll(duration, stillness time.Duration, direction string) {
+	endTime := time.Now().Add(duration)
 	fig.phrase = fig.phrase + "   "
 	clearScreen()
 	for time.Now().Before(endTime) {
@@ -56,11 +64,19 @@ func (fig figure) Scroll(duration, stillness int, direction string) {
 	}
 }
 
-func (fig figure) Blink(duration, timeOn, timeOff int) {
+// Blink animates the figure with blinking.
+// duration: total time the banner will display.
+//
+// timeOn: duration of time the text will blink on.
+//
+// timeOff: duration of time the text will blink off.
+//
+// For an even blink, set `timeOff` to -1 (same as setting `timeOff` to the value of `timeOn`).
+func (fig Figure) Blink(duration, timeOn, timeOff time.Duration) {
 	if timeOff < 0 {
 		timeOff = timeOn
 	}
-	endTime := time.Now().Add(time.Duration(duration) * time.Millisecond)
+	endTime := time.Now().Add(duration)
 	clearScreen()
 	for time.Now().Before(endTime) {
 		fig.Print()
@@ -70,14 +86,18 @@ func (fig figure) Blink(duration, timeOn, timeOff int) {
 	}
 }
 
-func (fig figure) Dance(duration, freeze int) {
-	endTime := time.Now().Add(time.Duration(duration) * time.Millisecond)
-	font := fig.font //TODO: change to deep copy
+// Dance writes the figure and animates it with "dancing".
+//
+// duration: total time the banner will display.
+//
+// freeze: duration of time between dance moves.
+//
+// NOTE: The lower the freeze the faster the dancing.
+func (fig Figure) Dance(duration, freeze time.Duration) {
+	endTime := time.Now().Add(duration)
+	font := fig.font // TODO: change to deep copy
 	font.evenLetters()
-	figures := []figure{
-		{font: font},
-		{font: font},
-	}
+	figures := []Figure{{font: font}, {font: font}}
 	clearScreen()
 	for i, c := range fig.phrase {
 		appenders := []string{" ", " "}
@@ -94,8 +114,8 @@ func (fig figure) Dance(duration, freeze int) {
 	}
 }
 
-// writers
-func Write(w io.Writer, fig figure) {
+// Write outputs the figure to an arbitrary io.Writer.
+func Write(w io.Writer, fig Figure) {
 	for _, printRow := range fig.Slicify() {
 		fmt.Fprintf(w, "%v\n", printRow)
 	}
@@ -106,6 +126,6 @@ func clearScreen() {
 	fmt.Print("\033[H\033[2J")
 }
 
-func sleep(milliseconds int) {
-	time.Sleep(time.Duration(milliseconds) * time.Millisecond)
+func sleep(milliseconds time.Duration) {
+	time.Sleep(milliseconds)
 }
